@@ -1,1 +1,1 @@
-# estatisticabasica
+https://dhelly.github.io/estatisticabasica/
