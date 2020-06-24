@@ -1,0 +1,118 @@
+---
+title: "Frequência"
+---
+
+Temos na estatística 4 frequências importante para trabalharmos:
+
+* Frequência simples absoluta (fi)
+* Frequência simples acumulada (fac)
+* Frequência relativa simples (fr)
+* Frequência relativa acumulada (frac)
+
+Elas têm por objetivo facilitar nosso entendimento em relação aos dados e como estão distribuídos.
+
+## Exemplos
+
+Pacotes utilizados
+```{r}
+#install.packages("Hmisc")
+library(Hmisc)
+```
+
+Gerando os dados
+```{r}
+idades <- rep(c(10,30,50,70,90), c(4,8,4,3,1))
+idades
+```
+
+## Frequência simples
+
+```{r}
+freq_simples <- table(idades)
+freq_simples
+```
+
+Melhorando a visualização, colocando em formato de tabela
+```{r}
+dados_simples <- data.frame(freq_simples)
+dados_simples
+```
+
+## Frequência acumulada
+```{r}
+freq_acumulada <- cumsum(freq_simples)
+freq_acumulada
+```
+
+Adicionando a tabela
+```{r}
+dados_simples$Freq_acumulada <- freq_acumulada
+dados_simples
+```
+
+## Frequência relativa simples
+
+```{r}
+freq_rel_simples <- freq_simples/sum(freq_simples)
+freq_rel_simples
+```
+
+Adicionando a tabela
+```{r}
+dados_simples$Freq_rel_simples <- freq_rel_simples
+dados_simples
+```
+
+## Frequência relativa acumulada
+```{r}
+freq_rel_acumulada <- freq_acumulada/sum(freq_simples)
+freq_rel_acumulada
+```
+
+Adicionando a tabela
+```{r}
+dados_simples$Freq_rel_acumulada <- freq_rel_acumulada
+dados_simples
+```
+
+## Achando mais rapidamente as frequências
+```{r}
+describe(idades)
+```
+
+# Analisando os dados com o tydiverse
+Carregando a biblioteca
+```{r}
+#install.packages("dplyr")
+library(dplyr)
+```
+
+Visualizando as linhas iniciais
+```{r}
+head(dados_simples)
+```
+
+Outra forma
+Usando o pipe (CTRL + SHIFT + M). A saída da esquerda é atribuída como primeiro argumento da instrução a direita.
+```{r}
+dados_simples %>% head()
+```
+
+Gerando os dados com apenas um comando
+```{r}
+dados_simples_tidy <- dados_simples %>% 
+                      mutate(Freq_acumulada = sum(Freq),
+                             Freq_rel_simples = Freq/sum(Freq),
+                             Freq_rel_acumulada = cumsum(freq_simples))
+dados_simples_tidy
+```
+
+
+
+#### Fontes de estudos
+
+* [Comunidade de Estatística](https://comunidadeestatistica.landen.co/)
+* [DataScience Academy](https://www.datascienceacademy.com.br)
+
+
+

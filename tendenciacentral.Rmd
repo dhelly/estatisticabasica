@@ -1,0 +1,140 @@
+---
+title: "Tendência Central"
+---
+
+```
+
+## Instalação de Pacotes
+```{r}
+#install.packages("e1071")
+library(e1071)
+```
+
+## Amostra
+```{r}
+amostra <- c(2,3,6,9)
+```
+
+## Média
+```{r}
+mean(amostra)
+```
+## Mediana
+```{r}
+median(amostra)
+```
+## Sumarização da amostra
+```{r}
+summary(amostra)
+```
+## Gráficos
+
+### Gráfico de barras
+
+```{r}
+barplot(amostra)
+```
+
+### Histograma com frequência simples
+```{r}
+hist(amostra)
+```
+
+
+### Histograma com frequência relativa
+```{r}
+hist(amostra, probability = T)
+```
+
+### Histograma com frequência relativa e com a densidade
+```{r}
+hist(amostra, probability = T)
+lines(density(amostra))
+```
+
+### Assimetria
+```{r}
+skewness(amostra)
+```
+
+### Curtose
+```{r}
+kurtosis(amostra)
+```
+Entendendo a análise no R
+
+* K=0, Mesocúrtica.
+* K<0, Platicúrtica.
+* K>0, Leptocúrtica.
+
+Portanto, nossa amostra é Platicúrtica, ou seja, com mais achata.
+
+
+# Análise II
+
+### Amostra
+```{r}
+amostra2 <- c(7,1,5,2,3,1,6)
+amostra2
+```
+
+## Média
+```{r}
+mean(amostra2)
+```
+## Mediana
+```{r}
+median(amostra2)
+```
+
+## Moda
+Lembre-se que é preciso ordenar
+```{r}
+as.numeric(names(table(amostra2))[table(amostra2) == max(table(amostra2))])
+```
+
+
+## Sumarização da amostra
+```{r}
+summary(amostra2)
+```
+## Gráficos
+
+### Gráfico de barras
+
+```{r}
+barplot(amostra2)
+```
+
+### Histograma com frequência simples
+```{r}
+hist(amostra2)
+```
+
+
+### Histograma com frequência relativa
+```{r}
+hist(amostra2, probability = T)
+```
+
+### Histograma com frequência relativa e com a densidade
+```{r}
+hist(amostra2, probability = T)
+lines(density(amostra2))
+```
+
+### Assimetria
+```{r}
+skewness(amostra2)
+```
+
+### Curtose
+```{r}
+kurtosis(amostra2)
+```
+
+
+#### Fontes de estudos
+
+* [Comunidade de Estatística](https://comunidadeestatistica.landen.co/)
+* [DataScience Academy](https://www.datascienceacademy.com.br)
