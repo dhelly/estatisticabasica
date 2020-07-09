@@ -1,0 +1,30 @@
+---
+title: "Medidas de Dispersão"
+---
+
+
+## Queremos saber o quanto distante ou próximo os valores são em relação a média
+
+### Dataframe que será utilizado
+```{r}
+head(iris)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#### Fontes de estudos
+
+* [Comunidade de Estatística](https://comunidadeestatistica.landen.co/)
+* [DataScience Academy](https://www.datascienceacademy.com.br)
