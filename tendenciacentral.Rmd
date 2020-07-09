@@ -136,4 +136,3 @@ kurtosis(amostra2)
 #### Fontes de estudos
 
 * [Comunidade de Estatística](https://comunidadeestatistica.landen.co/)
-* [DataScience Academy](https://www.datascienceacademy.com.br)

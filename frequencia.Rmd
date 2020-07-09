@@ -112,7 +112,3 @@ dados_simples_tidy
 #### Fontes de estudos
 
 * [Comunidade de Estatística](https://comunidadeestatistica.landen.co/)
-* [DataScience Academy](https://www.datascienceacademy.com.br)
-
-
-

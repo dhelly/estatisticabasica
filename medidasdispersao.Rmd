@@ -1,30 +1,147 @@
 ---
 title: "Medidas de Dispersão"
+header-includes:
+    - \usepackage{setspace}\doublespacing
 ---
 
+<div style="margin-bottom:100px;">
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+</div>
 
-## Queremos saber o quanto distante ou próximo os valores são em relação a média
+Queremos saber o quanto distante ou próximo os valores são em relação a média
 
 ### Dataframe que será utilizado
 ```{r}
 head(iris)
 ```
 
+### Explorando os dados
+```{r}
+dim(iris)
+```
+
+### Gerando amostras
+```{r}
+sl <- iris$Sepal.Length
+length(sl)
+```
+
+#### Amplitude amostral
+É a mais simples medida - Maior menos o Menor valor.
+o método **range** retorna o valor máximo e o valor mínimo.
+```{r}
+sl.h <- diff(range(sl))
+sl.h
+```
+#### Variância Amostral
+```{r}
+sl.var <- var(sl)
+sl.var
+```
+_Para calcular a variância populacional podemos multiplicar por (lenght(n) - 1)/lenght(n)_
+
+### Desvio padrão amostral
+```{r}
+sl.sd <- sd(sl)
+sl.sd
+```
+
+### Coeficiente de variação amostral
+```{r}
+sl.cv <- sd(sl)/mean(sl)*100
+sl.cv
+```
+_Se o coeficiente for menor que 25% dizemos que ele é homogênio, se for maior dizemos que ele é heterogênio_
+
+<div style="margin-bottom:50px;">
+</div>
+
+
+# Analisando a Segunda Amostra - Pental Length
+```{r}
+pl <- iris$Petal.Length
+head(pl)
+```
+#### Amplitude amostral
+É a mais simples medida - Maior menos o Menor valor.
+o método **range** retorna o valor máximo e o valor mínimo.
+```{r}
+pl.h <- diff(range(pl))
+pl.h
+```
+#### Variância Amostral
+```{r}
+pl.var <- var(pl)
+pl.var
+```
+_Para calcular a variância populacional podemos multiplicar por (lenght(n) - 1)/lenght(n)_
+
+### Desvio padrão amostral
+```{r}
+pl.sd <- sd(pl)
+pl.sd
+```
+
+### Coeficiente de variação amostral
+```{r}
+pl.cv <- sd(pl)/mean(pl)*100
+pl.cv
+```
+_Se o coeficiente for menor que 25% dizemos que ele é homogênio, se for maior dizemos que ele é heterogênio_
+
+<div style="margin-bottom:50px;">
+</div>
+
+
+## Comparação
+
+Média
+```{r}
+c(mean(sl), mean(pl))
+```
+
+
+Amplitude
+```{r}
+c(sl.h, pl.h)
+```
+
+Variância
+```{r}
+c(sl.var, pl.var)
+```
+
+Desvio padrão
+```{r}
+c(sl.sd, pl.sd)
+```
+
+Coeficiente de variação
+```{r}
+c(sl.cv, pl.cv)
+```
+
+<div style="margin-bottom:50px;">
+</div>
+
+## Comparando graficamente
+```{r}
+plot(sl)
+abline(h = mean(sl))
+```
+a linha representa a média
+
+```{r}
+plot(pl)
+abline(h = mean(pl))
+```
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+<div style="margin-bottom:50px;">
+</div>
 #### Fontes de estudos
 
 * [Comunidade de Estatística](https://comunidadeestatistica.landen.co/)
-* [DataScience Academy](https://www.datascienceacademy.com.br)
