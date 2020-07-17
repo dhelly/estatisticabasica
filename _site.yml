@@ -8,6 +8,8 @@ navbar:
       href: medidasdispersao.html
     - text: "Medidas de Tendência Central"
       href: tendenciacentral.html
+    - text: "Gráficos Estatísticos"
+      href: graf_quantitativo.html
 
 output_dir: "."
 output:

@@ -4,7 +4,7 @@ title: "Tendência Central"
 
 
 ## Instalação de Pacotes
-```{r}
+```{r message=F}
 #install.packages("e1071")
 library(e1071)
 ```

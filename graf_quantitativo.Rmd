@@ -1,0 +1,78 @@
+---
+title: "R Notebook"
+header-includes:
+    - \usepackage{setspace}\doublespacing
+---
+
+# R estatística Descritiva
+_Em toda análise devemos verificar os tipos de dados das variáveis_
+
+## Carregando as bibliotecas
+```{r message=F}
+library(ggplot2)
+library(dplyr)
+library(scales)
+library(plotly)
+library(gridExtra)
+```
+
+## Criando a massa de dados
+
+_Definindo os vetores que formarão a base de dados_
+```{r}
+sexo <-c("M", "F")
+cor_olhos <- c("Preto", "Castanho", "Azul", "Verde")
+cigarro <- c("Fumante", "Não Fumante")
+doente <- c("Doente", "Sadio")
+estado_civil <- c("Solteiro(a)", "Casado(a)")
+```
+
+## Criando a base de dados aleatoriamente
+```{r}
+amostra_sexo <- sample(sexo, size = 100, replace = T)
+amostra_cor_olhos <- sample(cor_olhos, size = 100, replace = T)
+amostra_cigarro <- sample(cigarro, size = 100, replace = T)
+amostra_doente <- sample(doente, size = 100, replace = T)
+amostra_est_civil <- sample(estado_civil, size = 100, replace = T)
+amostra_dummy_civil <- ifelse(amostra_est_civil == "Solteiro(a)", "1","0")
+```
+
+## Colocando os dados num *DataFrame*
+```{r}
+var_cat_nominais <- data.frame(
+                          amostra_sexo,
+                          amostra_cor_olhos,
+                          amostra_cigarro,
+                          amostra_doente,
+                          amostra_est_civil,
+                          amostra_dummy_civil
+                        )
+head(var_cat_nominais)
+```
+
+---
+# Criando gráficos com o *Ggplot*
+
+Elementos do gráfico no ggplot
+
+1. Base de dados
+2. Geometria que será utilizada
+3. Aesthetic mapping - Parte estética do gráfico, eixos, cores, tamanhos, textos, etc
+4. Escala (formato, unidade de medida, etc)
+5. Rótulos, títulos, legendas, etc.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

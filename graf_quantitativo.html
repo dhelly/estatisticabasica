@@ -11,7 +11,7 @@
 
 
 
-<title>Tendência Central</title>
+<title>R Notebook</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -295,147 +295,76 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Tendência Central</h1>
+<h1 class="title toc-ignore">R Notebook</h1>
 
 </div>
 
 
-<div id="instalação-de-pacotes" class="section level2">
-<h2>Instalação de Pacotes</h2>
-<pre class="r"><code>#install.packages(&quot;e1071&quot;)
-library(e1071)</code></pre>
+<div id="r-estatística-descritiva" class="section level1">
+<h1>R estatística Descritiva</h1>
+<p><em>Em toda análise devemos verificar os tipos de dados das variáveis</em></p>
+<div id="carregando-as-bibliotecas" class="section level2">
+<h2>Carregando as bibliotecas</h2>
+<pre class="r"><code>library(ggplot2)
+library(dplyr)
+library(scales)
+library(plotly)
+library(gridExtra)</code></pre>
 </div>
-<div id="amostra" class="section level2">
-<h2>Amostra</h2>
-<pre class="r"><code>amostra &lt;- c(2,3,6,9)</code></pre>
+<div id="criando-a-massa-de-dados" class="section level2">
+<h2>Criando a massa de dados</h2>
+<p><em>Definindo os vetores que formarão a base de dados</em></p>
+<pre class="r"><code>sexo &lt;-c(&quot;M&quot;, &quot;F&quot;)
+cor_olhos &lt;- c(&quot;Preto&quot;, &quot;Castanho&quot;, &quot;Azul&quot;, &quot;Verde&quot;)
+cigarro &lt;- c(&quot;Fumante&quot;, &quot;Não Fumante&quot;)
+doente &lt;- c(&quot;Doente&quot;, &quot;Sadio&quot;)
+estado_civil &lt;- c(&quot;Solteiro(a)&quot;, &quot;Casado(a)&quot;)</code></pre>
 </div>
-<div id="média" class="section level2">
-<h2>Média</h2>
-<pre class="r"><code>mean(amostra)</code></pre>
-<pre><code>## [1] 5</code></pre>
+<div id="criando-a-base-de-dados-aleatoriamente" class="section level2">
+<h2>Criando a base de dados aleatoriamente</h2>
+<pre class="r"><code>amostra_sexo &lt;- sample(sexo, size = 100, replace = T)
+amostra_cor_olhos &lt;- sample(cor_olhos, size = 100, replace = T)
+amostra_cigarro &lt;- sample(cigarro, size = 100, replace = T)
+amostra_doente &lt;- sample(doente, size = 100, replace = T)
+amostra_est_civil &lt;- sample(estado_civil, size = 100, replace = T)
+amostra_dummy_civil &lt;- ifelse(amostra_est_civil == &quot;Solteiro(a)&quot;, &quot;1&quot;,&quot;0&quot;)</code></pre>
 </div>
-<div id="mediana" class="section level2">
-<h2>Mediana</h2>
-<pre class="r"><code>median(amostra)</code></pre>
-<pre><code>## [1] 4.5</code></pre>
-</div>
-<div id="sumarização-da-amostra" class="section level2">
-<h2>Sumarização da amostra</h2>
-<pre class="r"><code>summary(amostra)</code></pre>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##    2.00    2.75    4.50    5.00    6.75    9.00</code></pre>
-</div>
-<div id="gráficos" class="section level2">
-<h2>Gráficos</h2>
-<div id="gráfico-de-barras" class="section level3">
-<h3>Gráfico de barras</h3>
-<pre class="r"><code>barplot(amostra)</code></pre>
-<p><img src="tendenciacentral_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-</div>
-<div id="histograma-com-frequência-simples" class="section level3">
-<h3>Histograma com frequência simples</h3>
-<pre class="r"><code>hist(amostra)</code></pre>
-<p><img src="tendenciacentral_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
-</div>
-<div id="histograma-com-frequência-relativa" class="section level3">
-<h3>Histograma com frequência relativa</h3>
-<pre class="r"><code>hist(amostra, probability = T)</code></pre>
-<p><img src="tendenciacentral_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
-</div>
-<div id="histograma-com-frequência-relativa-e-com-a-densidade" class="section level3">
-<h3>Histograma com frequência relativa e com a densidade</h3>
-<pre class="r"><code>hist(amostra, probability = T)
-lines(density(amostra))</code></pre>
-<p><img src="tendenciacentral_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
-</div>
-<div id="assimetria" class="section level3">
-<h3>Assimetria</h3>
-<pre class="r"><code>skewness(amostra)</code></pre>
-<pre><code>## [1] 0.2371708</code></pre>
-</div>
-<div id="curtose" class="section level3">
-<h3>Curtose</h3>
-<pre class="r"><code>kurtosis(amostra)</code></pre>
-<pre><code>## [1] -2.115</code></pre>
-<p>Entendendo a análise no R</p>
-<ul>
-<li>K=0, Mesocúrtica.</li>
-<li>K&lt;0, Platicúrtica.</li>
-<li>K&gt;0, Leptocúrtica.</li>
-</ul>
-<p>Portanto, nossa amostra é Platicúrtica, ou seja, com mais achata.</p>
+<div id="colocando-os-dados-num-dataframe" class="section level2">
+<h2>Colocando os dados num <em>DataFrame</em></h2>
+<pre class="r"><code>var_cat_nominais &lt;- data.frame(
+                          amostra_sexo,
+                          amostra_cor_olhos,
+                          amostra_cigarro,
+                          amostra_doente,
+                          amostra_est_civil,
+                          amostra_dummy_civil
+                        )
+head(var_cat_nominais)</code></pre>
+<pre><code>##   amostra_sexo amostra_cor_olhos amostra_cigarro amostra_doente
+## 1            M             Preto     Não Fumante         Doente
+## 2            F             Preto     Não Fumante         Doente
+## 3            F             Preto         Fumante          Sadio
+## 4            M          Castanho         Fumante          Sadio
+## 5            M              Azul     Não Fumante         Doente
+## 6            F             Preto     Não Fumante          Sadio
+##   amostra_est_civil amostra_dummy_civil
+## 1         Casado(a)                   0
+## 2       Solteiro(a)                   1
+## 3         Casado(a)                   0
+## 4       Solteiro(a)                   1
+## 5       Solteiro(a)                   1
+## 6       Solteiro(a)                   1</code></pre>
+<hr />
 </div>
 </div>
-<div id="análise-ii" class="section level1">
-<h1>Análise II</h1>
-<div id="amostra-1" class="section level3">
-<h3>Amostra</h3>
-<pre class="r"><code>amostra2 &lt;- c(7,1,5,2,3,1,6)
-amostra2</code></pre>
-<pre><code>## [1] 7 1 5 2 3 1 6</code></pre>
-</div>
-<div id="média-1" class="section level2">
-<h2>Média</h2>
-<pre class="r"><code>mean(amostra2)</code></pre>
-<pre><code>## [1] 3.571429</code></pre>
-</div>
-<div id="mediana-1" class="section level2">
-<h2>Mediana</h2>
-<pre class="r"><code>median(amostra2)</code></pre>
-<pre><code>## [1] 3</code></pre>
-</div>
-<div id="moda" class="section level2">
-<h2>Moda</h2>
-<p>Lembre-se que é preciso ordenar</p>
-<pre class="r"><code>as.numeric(names(table(amostra2))[table(amostra2) == max(table(amostra2))])</code></pre>
-<pre><code>## [1] 1</code></pre>
-</div>
-<div id="sumarização-da-amostra-1" class="section level2">
-<h2>Sumarização da amostra</h2>
-<pre class="r"><code>summary(amostra2)</code></pre>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##   1.000   1.500   3.000   3.571   5.500   7.000</code></pre>
-</div>
-<div id="gráficos-1" class="section level2">
-<h2>Gráficos</h2>
-<div id="gráfico-de-barras-1" class="section level3">
-<h3>Gráfico de barras</h3>
-<pre class="r"><code>barplot(amostra2)</code></pre>
-<p><img src="tendenciacentral_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
-</div>
-<div id="histograma-com-frequência-simples-1" class="section level3">
-<h3>Histograma com frequência simples</h3>
-<pre class="r"><code>hist(amostra2)</code></pre>
-<p><img src="tendenciacentral_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
-</div>
-<div id="histograma-com-frequência-relativa-1" class="section level3">
-<h3>Histograma com frequência relativa</h3>
-<pre class="r"><code>hist(amostra2, probability = T)</code></pre>
-<p><img src="tendenciacentral_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
-</div>
-<div id="histograma-com-frequência-relativa-e-com-a-densidade-1" class="section level3">
-<h3>Histograma com frequência relativa e com a densidade</h3>
-<pre class="r"><code>hist(amostra2, probability = T)
-lines(density(amostra2))</code></pre>
-<p><img src="tendenciacentral_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
-</div>
-<div id="assimetria-1" class="section level3">
-<h3>Assimetria</h3>
-<pre class="r"><code>skewness(amostra2)</code></pre>
-<pre><code>## [1] 0.1915218</code></pre>
-</div>
-<div id="curtose-1" class="section level3">
-<h3>Curtose</h3>
-<pre class="r"><code>kurtosis(amostra2)</code></pre>
-<pre><code>## [1] -1.90821</code></pre>
-<div id="fontes-de-estudos" class="section level4">
-<h4>Fontes de estudos</h4>
-<ul>
-<li><a href="https://comunidadeestatistica.landen.co/">Comunidade de Estatística</a></li>
-</ul>
-</div>
-</div>
-</div>
+<div id="criando-gráficos-com-o-ggplot" class="section level1">
+<h1>Criando gráficos com o <em>Ggplot</em></h1>
+<p>Elementos do gráfico no ggplot</p>
+<ol style="list-style-type: decimal">
+<li>Base de dados</li>
+<li>Geometria que será utilizada</li>
+<li>Aesthetic mapping - Parte estética do gráfico, eixos, cores, tamanhos, textos, etc</li>
+</ol>
 </div>
 
 

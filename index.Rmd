@@ -1,6 +1,6 @@
 ---
 title: "Estudos em R"
-author:  "[Jaqueline](https://github.com/dhelly) at [Brazil], 24/06/2020"
+author:  "[Jaqueline](https://jaqueline.dev) at [Brazil], 24/06/2020"
 output:
   html_document:
     fig_width: 1
