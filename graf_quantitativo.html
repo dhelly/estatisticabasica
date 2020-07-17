@@ -341,16 +341,16 @@ amostra_dummy_civil &lt;- ifelse(amostra_est_civil == &quot;Solteiro(a)&quot;, &
                         )
 head(var_cat_nominais)</code></pre>
 <pre><code>##   amostra_sexo amostra_cor_olhos amostra_cigarro amostra_doente
-## 1            M             Preto     Não Fumante         Doente
-## 2            F             Preto     Não Fumante         Doente
-## 3            F             Preto         Fumante          Sadio
-## 4            M          Castanho         Fumante          Sadio
-## 5            M              Azul     Não Fumante         Doente
-## 6            F             Preto     Não Fumante          Sadio
+## 1            F          Castanho         Fumante         Doente
+## 2            M          Castanho     Não Fumante          Sadio
+## 3            F             Verde     Não Fumante          Sadio
+## 4            M             Preto     Não Fumante         Doente
+## 5            M             Preto     Não Fumante         Doente
+## 6            M             Verde     Não Fumante         Doente
 ##   amostra_est_civil amostra_dummy_civil
-## 1         Casado(a)                   0
+## 1       Solteiro(a)                   1
 ## 2       Solteiro(a)                   1
-## 3         Casado(a)                   0
+## 3       Solteiro(a)                   1
 ## 4       Solteiro(a)                   1
 ## 5       Solteiro(a)                   1
 ## 6       Solteiro(a)                   1</code></pre>
@@ -364,6 +364,8 @@ head(var_cat_nominais)</code></pre>
 <li>Base de dados</li>
 <li>Geometria que será utilizada</li>
 <li>Aesthetic mapping - Parte estética do gráfico, eixos, cores, tamanhos, textos, etc</li>
+<li>Escala (formato, unidade de medida, etc)</li>
+<li>Rótulos, títulos, legendas, etc.</li>
 </ol>
 </div>
 
