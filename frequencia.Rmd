@@ -14,7 +14,7 @@ Elas têm por objetivo facilitar nosso entendimento em relação aos dados e com
 ## Exemplos
 
 Pacotes utilizados
-```{r}
+```{r message=F}
 #install.packages("Hmisc")
 library(Hmisc)
 ```

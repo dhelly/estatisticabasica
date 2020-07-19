@@ -11,7 +11,7 @@
 
 
 
-<title>Frequência</title>
+<title>Medidas de Dispersão</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -295,157 +295,140 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Frequência</h1>
+<h1 class="title toc-ignore">Medidas de Dispersão</h1>
 
 </div>
 
 
-<p>Temos na estatística 4 frequências importante para trabalharmos:</p>
-<ul>
-<li>Frequência simples absoluta (fi)</li>
-<li>Frequência simples acumulada (fac)</li>
-<li>Frequência relativa simples (fr)</li>
-<li>Frequência relativa acumulada (frac)</li>
-</ul>
-<p>Elas têm por objetivo facilitar nosso entendimento em relação aos dados e como estão distribuídos.</p>
-<div id="exemplos" class="section level2">
-<h2>Exemplos</h2>
-<p>Pacotes utilizados</p>
-<pre class="r"><code>#install.packages(&quot;Hmisc&quot;)
-library(Hmisc)</code></pre>
-<p>Gerando os dados</p>
-<pre class="r"><code>idades &lt;- rep(c(10,30,50,70,90), c(4,8,4,3,1))
-idades</code></pre>
-<pre><code>##  [1] 10 10 10 10 30 30 30 30 30 30 30 30 50 50 50 50 70 70 70 90</code></pre>
+<div style="margin-bottom:100px;">
+
 </div>
-<div id="frequência-simples" class="section level2">
-<h2>Frequência simples</h2>
-<pre class="r"><code>freq_simples &lt;- table(idades)
-freq_simples</code></pre>
-<pre><code>## idades
-## 10 30 50 70 90 
-##  4  8  4  3  1</code></pre>
-<p>Melhorando a visualização, colocando em formato de tabela</p>
-<pre class="r"><code>dados_simples &lt;- data.frame(freq_simples)
-dados_simples</code></pre>
-<pre><code>##   idades Freq
-## 1     10    4
-## 2     30    8
-## 3     50    4
-## 4     70    3
-## 5     90    1</code></pre>
+<p>Queremos saber o quanto distante ou próximo os valores são em relação a média</p>
+<div id="dataframe-que-será-utilizado" class="section level3">
+<h3>Dataframe que será utilizado</h3>
+<pre class="r"><code>head(iris)</code></pre>
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
 </div>
-<div id="frequência-acumulada" class="section level2">
-<h2>Frequência acumulada</h2>
-<pre class="r"><code>freq_acumulada &lt;- cumsum(freq_simples)
-freq_acumulada</code></pre>
-<pre><code>## 10 30 50 70 90 
-##  4 12 16 19 20</code></pre>
-<p>Adicionando a tabela</p>
-<pre class="r"><code>dados_simples$Freq_acumulada &lt;- freq_acumulada
-dados_simples</code></pre>
-<pre><code>##   idades Freq Freq_acumulada
-## 1     10    4              4
-## 2     30    8             12
-## 3     50    4             16
-## 4     70    3             19
-## 5     90    1             20</code></pre>
+<div id="explorando-os-dados" class="section level3">
+<h3>Explorando os dados</h3>
+<pre class="r"><code>dim(iris)</code></pre>
+<pre><code>## [1] 150   5</code></pre>
 </div>
-<div id="frequência-relativa-simples" class="section level2">
-<h2>Frequência relativa simples</h2>
-<pre class="r"><code>freq_rel_simples &lt;- freq_simples/sum(freq_simples)
-freq_rel_simples</code></pre>
-<pre><code>## idades
-##   10   30   50   70   90 
-## 0.20 0.40 0.20 0.15 0.05</code></pre>
-<p>Adicionando a tabela</p>
-<pre class="r"><code>dados_simples$Freq_rel_simples &lt;- freq_rel_simples
-dados_simples</code></pre>
-<pre><code>##   idades Freq Freq_acumulada Freq_rel_simples
-## 1     10    4              4             0.20
-## 2     30    8             12             0.40
-## 3     50    4             16             0.20
-## 4     70    3             19             0.15
-## 5     90    1             20             0.05</code></pre>
+<div id="gerando-amostras" class="section level3">
+<h3>Gerando amostras</h3>
+<pre class="r"><code>sl &lt;- iris$Sepal.Length
+length(sl)</code></pre>
+<pre><code>## [1] 150</code></pre>
+<div id="amplitude-amostral" class="section level4">
+<h4>Amplitude amostral</h4>
+<p>É a mais simples medida - Maior menos o Menor valor. o método <strong>range</strong> retorna o valor máximo e o valor mínimo.</p>
+<pre class="r"><code>sl.h &lt;- diff(range(sl))
+sl.h</code></pre>
+<pre><code>## [1] 3.6</code></pre>
 </div>
-<div id="frequência-relativa-acumulada" class="section level2">
-<h2>Frequência relativa acumulada</h2>
-<pre class="r"><code>freq_rel_acumulada &lt;- freq_acumulada/sum(freq_simples)
-freq_rel_acumulada</code></pre>
-<pre><code>##   10   30   50   70   90 
-## 0.20 0.60 0.80 0.95 1.00</code></pre>
-<p>Adicionando a tabela</p>
-<pre class="r"><code>dados_simples$Freq_rel_acumulada &lt;- freq_rel_acumulada
-dados_simples</code></pre>
-<pre><code>##   idades Freq Freq_acumulada Freq_rel_simples Freq_rel_acumulada
-## 1     10    4              4             0.20               0.20
-## 2     30    8             12             0.40               0.60
-## 3     50    4             16             0.20               0.80
-## 4     70    3             19             0.15               0.95
-## 5     90    1             20             0.05               1.00</code></pre>
+<div id="variância-amostral" class="section level4">
+<h4>Variância Amostral</h4>
+<pre class="r"><code>sl.var &lt;- var(sl)
+sl.var</code></pre>
+<pre><code>## [1] 0.6856935</code></pre>
+<p><em>Para calcular a variância populacional podemos multiplicar por (lenght(n) - 1)/lenght(n)</em></p>
 </div>
-<div id="achando-mais-rapidamente-as-frequências" class="section level2">
-<h2>Achando mais rapidamente as frequências</h2>
-<pre class="r"><code>describe(idades)</code></pre>
-<pre><code>## idades 
-##        n  missing distinct     Info     Mean      Gmd 
-##       20        0        5    0.919       39    25.58 
-## 
-## lowest : 10 30 50 70 90, highest: 10 30 50 70 90
-##                                    
-## Value        10   30   50   70   90
-## Frequency     4    8    4    3    1
-## Proportion 0.20 0.40 0.20 0.15 0.05</code></pre>
 </div>
-<div id="analisando-os-dados-com-o-tydiverse" class="section level1">
-<h1>Analisando os dados com o tydiverse</h1>
-<p>Carregando a biblioteca</p>
-<pre class="r"><code>#install.packages(&quot;dplyr&quot;)
-library(dplyr)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;dplyr&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:Hmisc&#39;:
-## 
-##     src, summarize</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     intersect, setdiff, setequal, union</code></pre>
-<p>Visualizando as linhas iniciais</p>
-<pre class="r"><code>head(dados_simples)</code></pre>
-<pre><code>##   idades Freq Freq_acumulada Freq_rel_simples Freq_rel_acumulada
-## 1     10    4              4             0.20               0.20
-## 2     30    8             12             0.40               0.60
-## 3     50    4             16             0.20               0.80
-## 4     70    3             19             0.15               0.95
-## 5     90    1             20             0.05               1.00</code></pre>
-<p>Outra forma Usando o pipe (CTRL + SHIFT + M). A saída da esquerda é atribuída como primeiro argumento da instrução a direita.</p>
-<pre class="r"><code>dados_simples %&gt;% head()</code></pre>
-<pre><code>##   idades Freq Freq_acumulada Freq_rel_simples Freq_rel_acumulada
-## 1     10    4              4             0.20               0.20
-## 2     30    8             12             0.40               0.60
-## 3     50    4             16             0.20               0.80
-## 4     70    3             19             0.15               0.95
-## 5     90    1             20             0.05               1.00</code></pre>
-<p>Gerando os dados com apenas um comando</p>
-<pre class="r"><code>dados_simples_tidy &lt;- dados_simples %&gt;% 
-                      mutate(Freq_acumulada = sum(Freq),
-                             Freq_rel_simples = Freq/sum(Freq),
-                             Freq_rel_acumulada = cumsum(freq_simples))
-dados_simples_tidy</code></pre>
-<pre><code>##   idades Freq Freq_acumulada Freq_rel_simples Freq_rel_acumulada
-## 1     10    4             20             0.20                  4
-## 2     30    8             20             0.40                 12
-## 3     50    4             20             0.20                 16
-## 4     70    3             20             0.15                 19
-## 5     90    1             20             0.05                 20</code></pre>
+<div id="desvio-padrão-amostral" class="section level3">
+<h3>Desvio padrão amostral</h3>
+<pre class="r"><code>sl.sd &lt;- sd(sl)
+sl.sd</code></pre>
+<pre><code>## [1] 0.8280661</code></pre>
+</div>
+<div id="coeficiente-de-variação-amostral" class="section level3">
+<h3>Coeficiente de variação amostral</h3>
+<pre class="r"><code>sl.cv &lt;- sd(sl)/mean(sl)*100
+sl.cv</code></pre>
+<pre><code>## [1] 14.17113</code></pre>
+<p><em>Se o coeficiente for menor que 25% dizemos que ele é homogênio, se for maior dizemos que ele é heterogênio</em></p>
+<div style="margin-bottom:50px;">
+
+</div>
+</div>
+<div id="analisando-a-segunda-amostra---pental-length" class="section level1">
+<h1>Analisando a Segunda Amostra - Pental Length</h1>
+<pre class="r"><code>pl &lt;- iris$Petal.Length
+head(pl)</code></pre>
+<pre><code>## [1] 1.4 1.4 1.3 1.5 1.4 1.7</code></pre>
+<div id="amplitude-amostral-1" class="section level4">
+<h4>Amplitude amostral</h4>
+<p>É a mais simples medida - Maior menos o Menor valor. o método <strong>range</strong> retorna o valor máximo e o valor mínimo.</p>
+<pre class="r"><code>pl.h &lt;- diff(range(pl))
+pl.h</code></pre>
+<pre><code>## [1] 5.9</code></pre>
+</div>
+<div id="variância-amostral-1" class="section level4">
+<h4>Variância Amostral</h4>
+<pre class="r"><code>pl.var &lt;- var(pl)
+pl.var</code></pre>
+<pre><code>## [1] 3.116278</code></pre>
+<p><em>Para calcular a variância populacional podemos multiplicar por (lenght(n) - 1)/lenght(n)</em></p>
+</div>
+<div id="desvio-padrão-amostral-1" class="section level3">
+<h3>Desvio padrão amostral</h3>
+<pre class="r"><code>pl.sd &lt;- sd(pl)
+pl.sd</code></pre>
+<pre><code>## [1] 1.765298</code></pre>
+</div>
+<div id="coeficiente-de-variação-amostral-1" class="section level3">
+<h3>Coeficiente de variação amostral</h3>
+<pre class="r"><code>pl.cv &lt;- sd(pl)/mean(pl)*100
+pl.cv</code></pre>
+<pre><code>## [1] 46.97441</code></pre>
+<p><em>Se o coeficiente for menor que 25% dizemos que ele é homogênio, se for maior dizemos que ele é heterogênio</em></p>
+<div style="margin-bottom:50px;">
+
+</div>
+</div>
+<div id="comparação" class="section level2">
+<h2>Comparação</h2>
+<p>Média</p>
+<pre class="r"><code>c(mean(sl), mean(pl))</code></pre>
+<pre><code>## [1] 5.843333 3.758000</code></pre>
+<p>Amplitude</p>
+<pre class="r"><code>c(sl.h, pl.h)</code></pre>
+<pre><code>## [1] 3.6 5.9</code></pre>
+<p>Variância</p>
+<pre class="r"><code>c(sl.var, pl.var)</code></pre>
+<pre><code>## [1] 0.6856935 3.1162779</code></pre>
+<p>Desvio padrão</p>
+<pre class="r"><code>c(sl.sd, pl.sd)</code></pre>
+<pre><code>## [1] 0.8280661 1.7652982</code></pre>
+<p>Coeficiente de variação</p>
+<pre class="r"><code>c(sl.cv, pl.cv)</code></pre>
+<pre><code>## [1] 14.17113 46.97441</code></pre>
+<div style="margin-bottom:50px;">
+
+</div>
+</div>
+<div id="comparando-graficamente" class="section level2">
+<h2>Comparando graficamente</h2>
+<pre class="r"><code>plot(sl)
+abline(h = mean(sl))</code></pre>
+<p><img src="medidasdispersao_files/figure-html/unnamed-chunk-18-1.png" width="672" /> a linha representa a média</p>
+<pre class="r"><code>plot(pl)
+abline(h = mean(pl))</code></pre>
+<p><img src="medidasdispersao_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<div style="margin-bottom:50px;">
+
+</div>
 <div id="fontes-de-estudos" class="section level4">
 <h4>Fontes de estudos</h4>
 <ul>
 <li><a href="https://comunidadeestatistica.landen.co/">Comunidade de Estatística</a></li>
 </ul>
+</div>
 </div>
 </div>
 
